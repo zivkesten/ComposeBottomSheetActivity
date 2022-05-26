@@ -12,21 +12,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.zk.composebottomsheet.MainActivity.Companion.KEY_SHOULD_WRAP
 import com.zk.composebottomsheet.composables.Content
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalMaterialApi::class)
 class NewFlowActivity : ComposeBottomSheetActivity() {
 
+    private val shouldWrapWithBottomSheetUI by lazy { intent?.getBooleanExtra(KEY_SHOULD_WRAP, true) }
+
     @Composable
     override fun ScreenContent(
         coroutineScope: CoroutineScope,
         modalBottomSheetState: ModalBottomSheetState
     ) {
-        Box(modifier = Modifier.height(300.dp)) {
+        Box(modifier = Modifier.height(300.dp).background(Color.White)) {
             Content(modifier = Modifier.fillMaxSize(), animRes = R.raw.learn)
         }
     }
 
-    override fun wrapWithBottomSheetUI() = true
+    override fun wrapWithBottomSheetUI() = shouldWrapWithBottomSheetUI ?: true
 }

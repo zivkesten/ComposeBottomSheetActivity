@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 
@@ -24,6 +25,6 @@ fun ActionButton(modifier: Modifier, onClick: () -> Unit) {
                 .height(58.dp)),
         shape = RoundedCornerShape(10.dp)
     ) {
-        Text("Show me the bottom sheet!")
+        Text("Show me the bottom sheet!", textAlign = TextAlign.Center)
     }
 }
