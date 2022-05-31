@@ -56,10 +56,14 @@ abstract class ComposeBottomSheetActivity : AppCompatActivity() {
                     when {
                         wrapWithBottomSheetUI() -> {
                             BottomSheetUI(coroutineScope, modalBottomSheetState) {
-                                ScreenContent(coroutineScope, modalBottomSheetState)
+                                ScreenContent(coroutineScope, modalBottomSheetState) {
+                                    onFinish(coroutineScope, modalBottomSheetState)
+                                }
                             }
                         }
-                        else -> ScreenContent(coroutineScope, modalBottomSheetState)
+                        else -> ScreenContent(coroutineScope, modalBottomSheetState) {
+                            onFinish(coroutineScope, modalBottomSheetState)
+                        }
                     }
                 }
             ) {}
@@ -128,17 +132,22 @@ abstract class ComposeBottomSheetActivity : AppCompatActivity() {
         modalBottomSheetState: ModalBottomSheetState
     ) {
         when {
-            isSheetOpened.value -> exit()
-            else -> {
-                isSheetOpened.value = true
-                modalBottomSheetState.show()
-            }
+            !isSheetOpened.value -> initializeModalLayout(isSheetOpened, modalBottomSheetState)
+            else -> exit()
         }
+    }
+
+    private suspend fun initializeModalLayout(
+        isSheetOpened: MutableState<Boolean>,
+        modalBottomSheetState: ModalBottomSheetState
+    ) {
+        isSheetOpened.value = true
+        modalBottomSheetState.show()
     }
 
     open fun exit() = finish()
 
-    open fun onFinish(
+    private fun onFinish(
         coroutineScope: CoroutineScope,
         modalBottomSheetState: ModalBottomSheetState,
         withResults: Boolean = false,
@@ -156,7 +165,8 @@ abstract class ComposeBottomSheetActivity : AppCompatActivity() {
     @Composable
     abstract fun ScreenContent(
         coroutineScope: CoroutineScope,
-        modalBottomSheetState: ModalBottomSheetState
+        modalBottomSheetState: ModalBottomSheetState,
+        onExit: (() -> Unit?)
     )
 
     override fun onPause() {

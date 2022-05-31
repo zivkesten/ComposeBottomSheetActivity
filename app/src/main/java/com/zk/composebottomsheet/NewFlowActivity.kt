@@ -21,15 +21,16 @@ class NewFlowActivity : ComposeBottomSheetActivity() {
 
     private val shouldWrapWithBottomSheetUI by lazy { intent?.getBooleanExtra(KEY_SHOULD_WRAP, true) }
 
+    override fun wrapWithBottomSheetUI() = shouldWrapWithBottomSheetUI ?: true
+
     @Composable
     override fun ScreenContent(
         coroutineScope: CoroutineScope,
-        modalBottomSheetState: ModalBottomSheetState
+        modalBottomSheetState: ModalBottomSheetState,
+        onExit: () -> Unit?
     ) {
         Box(modifier = Modifier.height(300.dp).background(Color.White)) {
             Content(modifier = Modifier.fillMaxSize(), animRes = R.raw.learn)
         }
     }
-
-    override fun wrapWithBottomSheetUI() = shouldWrapWithBottomSheetUI ?: true
 }

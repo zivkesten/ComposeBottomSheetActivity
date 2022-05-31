@@ -6,12 +6,15 @@
     </style>
 
     <style name="Theme.Transparent" parent="Theme.AppCompat">
-        <item name="android:windowIsTranslucent">true</item>
+        <!-- We want the activity to be transparent -->
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowContentOverlay">@null</item>
+
+        <!-- Make sure there is no action bar/title -->
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- Remove default animations to have full control -->
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 </resources>
