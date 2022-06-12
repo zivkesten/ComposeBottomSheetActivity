@@ -15,8 +15,12 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun ActionButton(modifier: Modifier, onClick: () -> Unit) {
-    Button(colors = ButtonDefaults.buttonColors(backgroundColor = Color.Cyan),
+fun ActionButton(
+    modifier: Modifier,
+    text: String,
+    color: Color,
+    onClick: () -> Unit) {
+    Button(colors = ButtonDefaults.buttonColors(backgroundColor = color),
         onClick = { onClick() },
         modifier = modifier.then(
             Modifier
@@ -25,6 +29,6 @@ fun ActionButton(modifier: Modifier, onClick: () -> Unit) {
                 .height(58.dp)),
         shape = RoundedCornerShape(10.dp)
     ) {
-        Text("Show me the bottom sheet!", textAlign = TextAlign.Center)
+        Text(text, textAlign = TextAlign.Center)
     }
 }
